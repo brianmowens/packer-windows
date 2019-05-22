@@ -5,6 +5,6 @@ packer build `
   ../packer_files/2019_core.json
 
 if(Test-Path -Path ".\packer_cache"){
-  Wrte-Output "Clearing packer cache from local disk"
+  Write-Output "Clearing packer cache from local disk"
   Remove-Item .\packer_cache -Recurse -Force
 }

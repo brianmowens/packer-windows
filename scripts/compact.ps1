@@ -4,6 +4,9 @@ if ( $env:PACKER_BUILD_TYPE -eq "hyperv") {
     exit
 }
 
+Write-Output "Ensuring PowerShell is using TLS 1.2"
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 # Create a webclient because of redirects downloading from sourceforge. Invoke-Webrequest returns invalid files.
 $WebClient = New-Object System.Net.WebClient
 

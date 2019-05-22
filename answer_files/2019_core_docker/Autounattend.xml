@@ -162,11 +162,6 @@
                     <Order>10</Order>
                     <Description>Disable password expiration for vagrant user</Description>
                 </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\enable-microsoft-updates.ps1 -auditphase initial</CommandLine>
-                    <Order>11</Order>
-                    <Description>Audit installed updates</Description>
-                </SynchronousCommand>
                 <!-- WITHOUT WINDOWS UPDATES -->
                 <!--
                 <SynchronousCommand wcm:action="add">

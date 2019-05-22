@@ -18,6 +18,7 @@ if($env:PACKER_BUILDER_TYPE -eq "virtualbox-iso"){
     $DiskDrive = ($DiskImage | Get-Volume).DriveLetter
 
     Write-Output "Starting Guest Additions Installation"
+    Start-Process -FilePath "$($DiskDrive):\cert\VBoxCertUtil.exe" -ArgumentList "add-trusted-publisher","vbox*.cer","--root vbox*.cer" -Wait
     Start-Process -FilePath "$($DiskDrive):\VBoxWindowsAdditions.exe" -ArgumentList "/S" -Wait
 
 }
