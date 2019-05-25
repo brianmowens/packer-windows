@@ -14,9 +14,14 @@ if ($env:PACKER_BUILDER_TYPE -And $($env:PACKER_BUILDER_TYPE).startsWith("hyperv
     #Write-Host Disable services
     #. $env:TEMP\Debloat-Windows-10-master\scripts\disable-services.ps1
     Write-host Disable Windows Defender
-    if ($(gp "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").ProductName.StartsWith("Windows 10")) {
+    $ProductName = (gp "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").ProductName
+    if ($ProductName -like "Windows 10 *") {
       . $env:TEMP\Debloat-Windows-10-master\scripts\disable-windows-defender.ps1
-    } else {
+    } 
+    elseif ($ProductName -like "Windows Server 2019 *"){
+      Uninstall-WindowsFeature Windows-Defender
+    }
+    else {
       Uninstall-WindowsFeature Windows-Defender-Features
     }
     Write-host Optimize Windows Update
