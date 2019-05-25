@@ -1,6 +1,6 @@
 
 $WebClient = New-Object System.Net.WebClient
-$VBoxGuestVersion = '5.2.26'
+$VBoxGuestVersion = '6.0.8'
 
 if($env:PACKER_BUILDER_TYPE -eq "virtualbox-iso"){
     Write-Output "Running virtualbox-iso guest tools installation."
@@ -10,7 +10,7 @@ if($env:PACKER_BUILDER_TYPE -eq "virtualbox-iso"){
     }
     else{
         Write-Output "Downloading Guest Additions."
-        $WebClient.DownloadFile("https://download.virtualbox.org/virtualbox/5.2.26/VBoxGuestAdditions_$($VBoxGuestVersion).iso","C:\Windows\Temp\VBoxGuestAdditions.iso")
+        $WebClient.DownloadFile("https://download.virtualbox.org/virtualbox/$($VBoxGuestVersion)/VBoxGuestAdditions_$($VBoxGuestVersion).iso","C:\Windows\Temp\VBoxGuestAdditions.iso")
     }
     
     Write-Output "Mounting ISO"

@@ -5,7 +5,7 @@ param(
     [string] $auditphase = $env:AUDIT_PHASE,
 
     [Parameter(Mandatory=$false)]
-    [string] $logdirectory = "C:\tmp\build_audit"
+    [string] $logdirectory = "C:\Packer\Logs\build_audit"
 )
 
 # In case the environment variable was null or an empty string, lets default to "initial"
