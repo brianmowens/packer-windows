@@ -4,4 +4,4 @@ New-NetFirewallRule -Name "RDP-Inbound" -DisplayName "Remote Desktop - Inbound" 
 
 Write-Output "Enabling Remote Desktop"
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server" -Name 'fDenyTSConnections' `
-    -Value 0 -Force
+    -Value 0 -Force -EA SilentlyContinue

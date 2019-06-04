@@ -1,0 +1,22 @@
+# version format
+version: 1.0.{build}
+
+# Maximum number of concurrent jobs for the project
+max_jobs: 1
+
+# Build worker image (VM template)
+image: Visual Studio 2017
+
+# scripts that run after cloning repository
+install:
+  - choco feature disable --name showDownloadProgress
+  - choco install -y packer
+  - ps: Install-WindowsFeature Hyper-V-PowerShell
+
+# to run your custom scripts instead of automatic MSBuild
+build_script:
+  - ps: .\appveyor\2019_core.ps1
+
+# to run your custom scripts instead of automatic tests
+#test_script:
+#  - echo This is my custom test script
