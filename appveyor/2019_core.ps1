@@ -2,7 +2,7 @@ param(
   [CmdletBinding()]  
   
   [Parameter(Mandatory=$false)]
-  [string] $PackerBuilder = "virtualbox-iso",
+  [string] $PackerBuilder = "hyperv-iso",
 
   [Parameter(Mandatory=$false)]
   [string] $isoUrl = "$($env:server2019iso)",

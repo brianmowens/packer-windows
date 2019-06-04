@@ -38,7 +38,37 @@
             "winrm_password": "vagrant",
             "winrm_timeout": "{{user `winrm_timeout`}}",
             "winrm_username": "vagrant"
-        }
+        },
+        {
+            "boot_wait": "0s",
+            "communicator": "winrm",
+            "cpus": 2,
+            "disk_size": "{{user `disk_size`}}",
+            "enable_secure_boot": true,
+            "enable_virtualization_extensions": true,
+            "floppy_files": [
+                "{{user `autounattend`}}",
+                "./scripts/disable-screensaver.ps1",
+                "./scripts/disable-winrm.ps1",
+                "./scripts/enable-winrm.ps1",
+                "./scripts/enable-microsoft-updates.ps1",
+                "./scripts/update-windows.ps1",
+                "./scripts/authorized_keys",
+                "./scripts/sshd_config"
+            ],
+            "guest_additions_mode": "disable",
+            "iso_checksum": "{{user `iso_checksum`}}",
+            "iso_checksum_type": "{{user `iso_checksum_type`}}",
+            "iso_url": "{{user `iso_url`}}",
+            "memory": 2048,
+            "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+            "switch_name": "{{user `hyperv_switchname`}}",
+            "type": "hyperv-iso",
+            "vm_name": "WindowsServer2019",
+            "winrm_password": "vagrant",
+            "winrm_timeout": "{{user `winrm_timeout`}}",
+            "winrm_username": "vagrant"
+          }
     ],
     "provisioners": [
         {
