@@ -1,22 +1,36 @@
-$SwitchName = "packer-hyperv-iso"
+param(
+    [CmdletBinding()]
 
-if(Get-VMSwitch -name $SwitchName){
-    "Hyper-V Switch already exists."
+    [Parameter(Mandatory=$false)]
+    [string] $SwitchName = "NATSwitch",
+
+    [Parameter(Mandatory=$false)]
+    [string] $SwitchType = "Internal"
+)
+
+# Check for an existing switch
+$ExistingSwitch = Get-VMSwitch -Name $SwitchName -EA SilentlyContinue
+
+# Remove the existing switch if it exists
+if($ExistingSwitch){
+    Write-Host "Attempting to remove existing switch."
     try{
-        Remove-VMSwitch -name $SwitchName -Force
+        Remove-VMSwitch -Name $SwitchName -Force -EA Stop
     }
     catch{
-        Write-Output "Failed to remove existing switch."
+        Write-Error "Failed to remove existing switch. Error: $($_.Exception.Message)"
         break
     }
+}
 
-    $NetAdapter = Get-NetAdapter -EA Stop
-    if($NetAdapter){
-        try{
-            New-VMSwitch -name $SwitchName -NetAdapeterName $NetAdapter[0].Name -AllowManagementOs $true -Verbose
-        }
-        catch{
-            Write-Output "Failed to create new switch."
-        }
-    }
+# Create the new switch
+Write-Host "Attempting to create new switch [$SwitchName]."
+try{
+    New-VMSwitch -SwitchName "$SwitchName" -SwitchType $SwitchType -EA Stop
+    New-NetIPAddress -IPAddress 192.168.0.1 -PrefixLength 24 -InterfaceAlias "vEthernet ($SwitchName)"
+    New-NetNAT -Name "$SwitchName" -InternalIPInterfaceAddressPrefix 192.168.0.0/24
+}
+catch {
+    Write-Error "Failed to create new switch. Error: $($_.Exception.Message)"
+    break
 }

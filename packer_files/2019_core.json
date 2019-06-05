@@ -4,6 +4,7 @@
         "disk_size": "61440",
         "disk_type_id": "1",
         "headless": "false",
+        "hyperv_switchname": "NATSwitch",
         "iso_checksum": "221F9ACBC727297A56674A0F1722B8AC7B6E840B4E1FFBDD538A9ED0DA823562",
         "iso_checksum_type": "sha256",
         "iso_url": "https://download.my.visualstudio.com/db/en_windows_server_version_1903_x64_dvd_58ddff4b.iso",
@@ -18,6 +19,7 @@
             "disk_size": "{{user `disk_size`}}",
             "floppy_files": [
                 "{{user `autounattend`}}",
+                "./scripts/configure-hyperv-interface.ps1",
                 "./scripts/disable-screensaver.ps1",
                 "./scripts/disable-winrm.ps1",
                 "./scripts/enable-winrm.ps1",
@@ -50,6 +52,7 @@
             "enable_virtualization_extensions": true,
             "floppy_files": [
                 "{{user `autounattend`}}",
+                "./scripts/configure-hyperv-interface.ps1",
                 "./scripts/disable-screensaver.ps1",
                 "./scripts/disable-winrm.ps1",
                 "./scripts/enable-winrm.ps1",
