@@ -9,11 +9,11 @@ param(
 )
 
 $StopWatch = [system.diagnostics.stopwatch]::StartNew()
-$WebClient = New-Object System.Net.WebClient -EA Stop
+
 
 try{
     Write-Host "Starting file download [$Uri]."
-    $WebClient.DownloadFile($Uri,$OutFile)
+    Invoke-WebRequest -Uri $Uri -OutFile $Outfile -TimeoutSec 1200
     Write-Host "File saved to: [$OutFile]."
 }
 catch{
