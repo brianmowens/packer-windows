@@ -9,8 +9,17 @@ param(
 )
 
 # Check for an existing switch
-$ExistingSwitch = Get-VMSwitch -Name $SwitchName -EA SilentlyContinue
+#$ExistingSwitch = Get-VMSwitch -Name $SwitchName -EA SilentlyContinue
 
+Write-Output "Creating VM Switch"
+New-VMSwitch -SwitchName "$SwitchName" -SwitchType $SwitchType
+$SwitchAdapter = Get-NetAdapter | Where-Object {$_.Name -like "*vEthernet ($SwitchName)*"}
+Write-Output "Creating Net IP Address"
+New-NetIPAddress -IPAddress 10.1.0.1 -PrefixLength 24 -InterfaceAlias "$($SwitchAdapter.InterfaceAlias)"
+Write-Output "Creating NAT network"
+New-NetNAT -Name "$SwitchName" -InternalIPInterfaceAddressPrefix 10.1.0.0/24
+
+<#
 # Remove the existing switch if it exists
 if($ExistingSwitch){
     Write-Host "Attempting to remove existing switch."
@@ -34,7 +43,7 @@ catch {
 }
 
 # Make sure we can find the new switch
-$SwitchAdapter = Get-NetAdapter | Where {$_.Name -like "*vEthernet ($SwitchName)*"}
+$SwitchAdapter = Get-NetAdapter | Where-Object {$_.Name -like "*vEthernet ($SwitchName)*"}
 if($SwichAdapter){
     Write-Host "Found new switch."
 }
@@ -60,3 +69,4 @@ catch{
     Write-Error "Failed to create new NAT network. Error: $($_.Exception.Message)"
     break
 }
+#>
