@@ -5,7 +5,7 @@ param(
     [string] $Uri = "$($env:server2019iso)",
 
     [Parameter(Mandatory=$false)]
-    [string] $Outfile = ".\server2019.iso"
+    [string] $Outfile = "C:/projects/packer-windows/server2019.iso"
 )
 
 $StopWatch = [system.diagnostics.stopwatch]::StartNew()
@@ -14,6 +14,7 @@ $WebClient = New-Object System.Net.WebClient -EA Stop
 try{
     Write-Host "Starting file download [$Uri]."
     $WebClient.DownloadFile($Uri,$OutFile)
+    Write-Host "File saved to: [$OutFile]."
 }
 catch{
     Write-Error "Failed to download file. Error: $($_.Exception.Message)"

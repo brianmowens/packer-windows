@@ -5,7 +5,7 @@ param(
   [string] $PackerBuilder = "hyperv-iso",
 
   [Parameter(Mandatory=$false)]
-  [string] $isoUrl = ".\server2019.iso",
+  [string] $isoUrl = "C:/projects/packer-windows/server2019.iso",
 
   [Parameter(Mandatory=$false)]
   [string] $packerFile = ".\packer_files\2019_core.json"
