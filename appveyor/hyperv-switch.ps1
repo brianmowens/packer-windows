@@ -27,7 +27,8 @@ if($ExistingSwitch){
 Write-Host "Attempting to create new switch [$SwitchName]."
 try{
     New-VMSwitch -SwitchName "$SwitchName" -SwitchType $SwitchType -EA Stop
-    New-NetIPAddress -IPAddress 10.1.0.1 -PrefixLength 24 -InterfaceAlias "vEthernet ($SwitchName)"
+    $SwitchAdapter = Get-NetAdapter | Where {$_.Name -like "*vEthernet ($SwitchName)*"}
+    New-NetIPAddress -IPAddress 10.1.0.1 -PrefixLength 24 -InterfaceIndex $SwitchAdapter.InterfaceIndex
     New-NetNAT -Name "$SwitchName" -InternalIPInterfaceAddressPrefix 10.1.0.0/24
 }
 catch {
