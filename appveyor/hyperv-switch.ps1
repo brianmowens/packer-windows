@@ -24,14 +24,39 @@ if($ExistingSwitch){
 }
 
 # Create the new switch
-Write-Host "Attempting to create new switch [$SwitchName]."
 try{
+    Write-Host "Attempting to create new switch [$SwitchName]."
     New-VMSwitch -SwitchName "$SwitchName" -SwitchType $SwitchType -EA Stop
-    $SwitchAdapter = Get-NetAdapter | Where {$_.Name -like "*vEthernet ($SwitchName)*"}
-    New-NetIPAddress -IPAddress 10.1.0.1 -PrefixLength 24 -InterfaceIndex $SwitchAdapter.InterfaceIndex
-    New-NetNAT -Name "$SwitchName" -InternalIPInterfaceAddressPrefix 10.1.0.0/24
 }
 catch {
     Write-Error "Failed to create new switch. Error: $($_.Exception.Message)"
+    break
+}
+
+# Make sure we can find the new switch
+$SwitchAdapter = Get-NetAdapter | Where {$_.Name -like "*vEthernet ($SwitchName)*"}
+if($SwichAdapter){
+    Write-Host "Found new switch."
+}
+else{
+    Write-Error "Failed to locate new switch."
+    break
+}
+
+try{
+    Write-Host "Creating new NetIPAddress"
+    New-NetIPAddress -IPAddress 10.1.0.1 -PrefixLength 24 -InterfaceIndex $SwitchAdapter.InterfaceIndex -EA Stop
+}
+catch{
+    Write-Error "Failed to create new NetIPAddress. Error: $($_.Exception.Message)"
+    break
+}
+
+try{
+    Write-Host "Creating new NAT network"
+    New-NetNAT -Name "$SwitchName" -InternalIPInterfaceAddressPrefix 10.1.0.0/24 -EA Stop
+}
+catch{
+    Write-Error "Failed to create new NAT network. Error: $($_.Exception.Message)"
     break
 }
