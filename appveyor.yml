@@ -15,10 +15,10 @@ install:
 
 # to run your custom scripts instead of automatic MSBuild
 before_build:
-#  - ps: .\appveyor\download_iso.ps1
+  - ps: .\appveyor\download-iso.ps1
   - ps: .\appveyor\hyperv-switch.ps1
 build_script:
-  - ps: .\appveyor\2019_core.ps1
+  #- ps: .\appveyor\2019_core.ps1
 
 # to run your custom scripts instead of automatic tests
 #test_script:

@@ -162,11 +162,13 @@
                     <Order>10</Order>
                     <Description>Disable password expiration for vagrant user</Description>
                 </SynchronousCommand>
+                <!-- APPVEYOR CONFIGURATION -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\configure-hyperv-interface.ps1</CommandLine>
                     <Order>11</Order>
                     <Description>Configure VM NIC</Description>
                 </SynchronousCommand>
+                <!-- END APPVEYOR CONFIGURATION -->
                 <!-- WITHOUT WINDOWS UPDATES -->
                 <!--
                 <SynchronousCommand wcm:action="add">
