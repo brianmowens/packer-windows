@@ -14,6 +14,21 @@ Write-Output "Starting iso download."
 $Transfer = Start-BitsTransfer -Source $Uri -Destination $Outfile -Asynchronous
 $CurrentStatus = ($Transfer | Get-BitsTransfer ).JobState
 
+$ConnectingTimeout = 30
+$ConnectingTime = 0
+do{
+    $CurrentStatus = ($Transfer | Get-BitsTransfer ).JobState
+    Start-Sleep 1
+    $ConnectingTime++
+    if($ConnectingTime -gt $ConnectingTimeout){
+        Write-Error "Failed to establish connectiong in the time alotted."
+        break
+    }
+    else {
+        Write-Output "Waiting for BITs to establish a connection. Attempt [$ConnectingTime] of [$ConnectingTimeOut]"
+    }
+}While ($CurrentStatus -eq "Connecting")
+
 do{
     $Min = [math]::Round($StopWatch.Elapsed.Minutes,0)
     $Sec = [math]::Round($StopWatch.Elapsed.Seconds,0)
