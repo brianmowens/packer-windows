@@ -47,5 +47,5 @@ do{
 
 $StopWatch.stop()
 $Minutes = [math]::Round($StopWatch.Elapsed.TotalMinutes,0)
-$Seconds = [math]::Round($StopWatch.Elapsed.TotalSeconds,0)
+$Seconds = [math]::Round($StopWatch.Elapsed.Seconds,0)
 Write-Host "Download time taken (Minutes:Seconds): $($Minutes):$($Seconds)"
