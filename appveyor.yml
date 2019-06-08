@@ -4,8 +4,11 @@ version: 1.0.{build}
 # Maximum number of concurrent jobs for the project
 max_jobs: 1
 
+# Build cloud
+build_cloud: BMOHyperV
+
 # Build worker image (VM template)
-image: Windows Server 2019
+image: WindowsHyperV
 
 # scripts that run after cloning repository
 install:
