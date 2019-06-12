@@ -21,7 +21,7 @@ before_build:
   - ps: .\appveyor\download-iso.ps1
   - ps: .\appveyor\hyperv-switch.ps1
 build_script:
-  - ps: .\build\2019_core.ps1
+  - ps: .\build\build_2019_core.ps1
 
 artifacts:
   - path: .\*.box
