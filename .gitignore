@@ -1,0 +1,12 @@
+
+# Ignore build output directories
+**/build/output-*
+
+# Ignore any generated box files
+**/*.box
+
+# Ignore folder used for local development tests
+**/vagrant_tests
+
+# Ignore the packer cache folder
+**/packer_cache
