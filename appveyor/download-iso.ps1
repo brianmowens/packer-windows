@@ -45,6 +45,13 @@ do{
     }
 } While ($CurrentStatus -eq "Transferring")
 
+if(Test-Path $Outfile){
+    Write-Output "Successfully wrote ISO to path: $Outfile"
+}
+else{
+    Write-Error "Failed to locate ISO file at path: $Outfile"
+}
+
 $StopWatch.stop()
 $Minutes = [math]::Round($StopWatch.Elapsed.TotalMinutes,0)
 $Seconds = [math]::Round($StopWatch.Elapsed.Seconds,0)

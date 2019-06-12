@@ -10,6 +10,10 @@ max_jobs: 1
 # Build worker image (VM template)
 image: Windows Server 2019
 
+# Before build/cloning phases. Enable RDP on the worker for diagnostics.
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 # scripts that run after cloning repository
 install:
   - choco feature disable --name showDownloadProgress
