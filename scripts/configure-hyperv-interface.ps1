@@ -17,19 +17,6 @@ param(
     [array] $DNSServers = @("8.8.8.8","8.8.4.4")
 )
 
-# Check if we're running on the AppVeyor platform
-if($env:APPVEYOR_PROJECT_NAME){
-    Write-Output "Build is running on AppVeyor platform. Configuring NIC."
-}
-# If not in AppVeyor, make sure we're running Hyper-V
-elseif($env:PACKER_BUILDER_TYPE -eq "hyperv-iso"){
-    Write-Output "Packer build type is Hyper-V. Configuring NIC."
-}
-# Exit if we don't have a match
-else {
-    Write-Output "Only AppVeyor and Hyper-V need their NIC configured."
-    break
-}
 
 # Configure the VM nic
 $Interface = Get-NetAdapter | Where-Object {$_.Name -like "*Ethernet*"}
