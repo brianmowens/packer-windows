@@ -10,9 +10,9 @@ build_cloud: BMOHyperV
 # Build worker image (VM template)
 image: WindowsHyperV
 
-# Before build/cloning phases. Enable RDP on the worker for diagnostics.
-init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+# Before build/cloning phases. Enable RDP on the worker for diagnostics. AppVeyor cloud only.
+#init:
+#  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 # scripts that run after cloning repository
 install:
