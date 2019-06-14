@@ -5,13 +5,13 @@ param(
     [CmdletBinding()]
 
     [Parameter(Mandatory=$false)]
-    [string] $IPAddress = "10.1.0.2",
+    [string] $IPAddress = "192.168.1.2",
 
     [Parameter(Mandatory=$false)]
     [string] $PrefixLength = "24",
 
     [Parameter(Mandatory=$false)]
-    [string] $DefaultGateway = "10.1.0.1",
+    [string] $DefaultGateway = "192.168.1.1",
 
     [Parameter(Mandatory=$false)]
     [array] $DNSServers = @("8.8.8.8","8.8.4.4")
