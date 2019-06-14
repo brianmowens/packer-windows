@@ -67,6 +67,7 @@
             "iso_url": "{{user `iso_url`}}",
             "memory": 1024,
             "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+            "shutdown_timeout": "30m",
             "switch_name": "{{user `hyperv_switchname`}}",
             "type": "hyperv-iso",
             "vm_name": "WindowsServer2019",
